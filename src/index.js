@@ -57,7 +57,9 @@ function low (file, options) {
   // db.object checksum
   var checksum
 
-  function save () {
+  var save = lodash.throttle(saveNow, 1000);
+
+  function saveNow () {
     if (file && options.autosave) {
       var str = low.stringify(db.object)
       // Don't write if there's no changes
